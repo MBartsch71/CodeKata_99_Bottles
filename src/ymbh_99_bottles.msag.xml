@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>YMBH_99_BOTTLES</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Message class for 99 bottles</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>YMBH_99_BOTTLES</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>&amp;1 bottle&amp;2 of beer on the wall. &amp;1 bottle&amp;2 of beer.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>YMBH_99_BOTTLES</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Take one down and pass it around. &amp;1 bottle&amp;2 of beer.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>YMBH_99_BOTTLES</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Go to the store and buy some more. &amp;1 bottles of beer.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>
