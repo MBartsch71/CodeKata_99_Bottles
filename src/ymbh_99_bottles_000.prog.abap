@@ -20,7 +20,24 @@ CLASS lcl_bottles DEFINITION FINAL.
     CONSTANTS mc_plural_s        TYPE c LENGTH 1 VALUE 's'.
 
     DATA mv_amount  TYPE i.
-    DATA mv_counter TYPE i.
+
+    METHODS build_beer_bottle_line
+      IMPORTING
+        iv_counter     TYPE i
+      RETURNING
+        VALUE(rv_line) TYPE string.
+
+    METHODS build_refill_line
+      IMPORTING
+        iv_counter     TYPE i
+      RETURNING
+        VALUE(rv_line) TYPE string.
+
+    METHODS build_take_down_line
+      IMPORTING
+        iv_counter     TYPE i
+      RETURNING
+        VALUE(rv_line) TYPE string.
 
     METHODS convert_counter
       IMPORTING
@@ -34,24 +51,6 @@ CLASS lcl_bottles DEFINITION FINAL.
       RETURNING
         VALUE(rv_plural) TYPE text1.
 
-    METHODS build_beer_bottle_line
-      IMPORTING
-        iv_counter     TYPE i
-      RETURNING
-        VALUE(rv_line) TYPE string.
-
-    METHODS build_take_down_line
-      IMPORTING
-        iv_counter     TYPE i
-      RETURNING
-        VALUE(rv_line) TYPE string.
-
-    METHODS build_refill_line
-      IMPORTING
-        iv_counter     TYPE i
-      RETURNING
-        VALUE(rv_line) TYPE string.
-
 ENDCLASS.
 
 CLASS lcl_bottles IMPLEMENTATION.
@@ -60,14 +59,19 @@ CLASS lcl_bottles IMPLEMENTATION.
     mv_amount = iv_amount.
   ENDMETHOD.
 
-  METHOD build_beer_bottle_line.
-    MESSAGE i001(ymbh_99_bottles) WITH convert_counter( iv_counter )
-                                       verify_plural( iv_counter )
-                                  INTO rv_line.
+  METHOD build_lines.
+    IF iv_count < mv_amount.
+      rt_lines = build_lines( iv_count + 1 ).
+    ENDIF.
+
+    rt_lines = SWITCH #( iv_count WHEN 0 THEN VALUE #( BASE rt_lines ( build_beer_bottle_line( iv_count ) )
+                                                                     ( build_refill_line( mv_amount ) ) )
+                                         ELSE VALUE #( BASE rt_lines ( build_beer_bottle_line( iv_count ) )
+                                                                     ( build_take_down_line( iv_count - 1 ) ) ) ).
   ENDMETHOD.
 
-  METHOD build_take_down_line.
-    MESSAGE i002(ymbh_99_bottles) WITH convert_counter( iv_counter )
+  METHOD build_beer_bottle_line.
+    MESSAGE i001(ymbh_99_bottles) WITH convert_counter( iv_counter )
                                        verify_plural( iv_counter )
                                   INTO rv_line.
   ENDMETHOD.
@@ -77,28 +81,20 @@ CLASS lcl_bottles IMPLEMENTATION.
                                   INTO rv_line.
   ENDMETHOD.
 
+  METHOD build_take_down_line.
+    MESSAGE i002(ymbh_99_bottles) WITH convert_counter( iv_counter )
+                                       verify_plural( iv_counter )
+                                  INTO rv_line.
+  ENDMETHOD.
+
   METHOD convert_counter.
     rv_counter = SWITCH #( iv_counter WHEN 0 THEN mc_no_more_snippet
                                       ELSE iv_counter ).
   ENDMETHOD.
 
   METHOD verify_plural.
-    rv_plural = SWITCH #( iv_counter WHEN 1 THEN ''
+    rv_plural = SWITCH #( iv_counter WHEN 1 THEN space
                                      ELSE mc_plural_s ).
-  ENDMETHOD.
-
-  METHOD build_lines.
-    IF iv_count < mv_amount.
-      rt_lines = build_lines( iv_count + 1 ).
-    ENDIF.
-
-    IF iv_count > 0.
-      rt_lines = VALUE stringtab( BASE rt_lines ( build_beer_bottle_line( iv_count ) )
-                                                ( build_take_down_line( iv_count - 1 ) ) ).
-    ELSE.
-      rt_lines = VALUE #( BASE rt_lines ( build_beer_bottle_line( mv_counter ) )
-                                        ( build_refill_line( mv_amount ) ) ).
-    ENDIF.
   ENDMETHOD.
 
 ENDCLASS.
