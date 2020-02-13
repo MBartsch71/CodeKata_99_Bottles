@@ -16,6 +16,12 @@
      <ENTRY>Code Kata before start of the book</ENTRY>
      <LENGTH>34</LENGTH>
     </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_AMNT</KEY>
+     <ENTRY>How many bottles do you have ?</ENTRY>
+     <LENGTH>38</LENGTH>
+    </item>
    </TPOOL>
   </asx:values>
  </asx:abap>

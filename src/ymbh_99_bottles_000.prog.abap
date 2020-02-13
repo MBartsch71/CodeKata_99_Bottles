@@ -137,3 +137,10 @@ CLASS ltc_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+
+PARAMETERS: p_amnt TYPE i.
+
+START-OF-SELECTION.
+
+  DATA(lo_bottles) = NEW lcl_bottles( p_amnt  ).
+  cl_demo_output=>display( lo_bottles->build_lines( ) ).
