@@ -18,13 +18,13 @@
      <SPRSL>E</SPRSL>
      <ARBGB>YMBH_99_BOTTLES</ARBGB>
      <MSGNR>002</MSGNR>
-     <TEXT>Take one down and pass it around. &amp;1 bottle&amp;2 of beer.</TEXT>
+     <TEXT>Take one down and pass it around. &amp;1 bottle&amp;2 of beer on the wall.</TEXT>
     </T100>
     <T100>
      <SPRSL>E</SPRSL>
      <ARBGB>YMBH_99_BOTTLES</ARBGB>
      <MSGNR>003</MSGNR>
-     <TEXT>Go to the store and buy some more. &amp;1 bottles of beer.</TEXT>
+     <TEXT>Go to the store and buy some more. &amp;1 bottles of beer on the wall.</TEXT>
     </T100>
    </T100>
   </asx:values>
