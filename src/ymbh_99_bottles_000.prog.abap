@@ -14,13 +14,10 @@ CLASS lcl_bottles DEFINITION FINAL.
       RETURNING
         VALUE(rt_lines) TYPE stringtab.
 
-    METHODS build_refill_line
-      IMPORTING
-        iv_counter     TYPE i
-      RETURNING
-        VALUE(rv_line) TYPE string.
-
   PRIVATE SECTION.
+
+    CONSTANTS mc_no_more_snippet TYPE c LENGTH 7 VALUE 'No more'.
+    CONSTANTS mc_plural_s        TYPE c LENGTH 1 VALUE 's'.
 
     DATA mv_amount  TYPE i.
     DATA mv_counter TYPE i.
@@ -44,6 +41,12 @@ CLASS lcl_bottles DEFINITION FINAL.
         VALUE(rv_line) TYPE string.
 
     METHODS build_take_down_line
+      IMPORTING
+        iv_counter     TYPE i
+      RETURNING
+        VALUE(rv_line) TYPE string.
+
+    METHODS build_refill_line
       IMPORTING
         iv_counter     TYPE i
       RETURNING
@@ -75,17 +78,16 @@ CLASS lcl_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD convert_counter.
-    rv_counter = SWITCH #( iv_counter WHEN 0 THEN |No more|
+    rv_counter = SWITCH #( iv_counter WHEN 0 THEN mc_no_more_snippet
                                       ELSE iv_counter ).
   ENDMETHOD.
 
   METHOD verify_plural.
     rv_plural = SWITCH #( iv_counter WHEN 1 THEN ''
-                                     ELSE 's' ).
+                                     ELSE mc_plural_s ).
   ENDMETHOD.
 
   METHOD build_lines.
-
     IF iv_count < mv_amount.
       rt_lines = build_lines( iv_count + 1 ).
     ENDIF.
@@ -94,10 +96,9 @@ CLASS lcl_bottles IMPLEMENTATION.
       rt_lines = VALUE stringtab( BASE rt_lines ( build_beer_bottle_line( iv_count ) )
                                                 ( build_take_down_line( iv_count - 1 ) ) ).
     ELSE.
-      rt_lines = value #( base rt_lines ( build_beer_bottle_line( mv_counter ) )
+      rt_lines = VALUE #( BASE rt_lines ( build_beer_bottle_line( mv_counter ) )
                                         ( build_refill_line( mv_amount ) ) ).
     ENDIF.
-
   ENDMETHOD.
 
 ENDCLASS.
