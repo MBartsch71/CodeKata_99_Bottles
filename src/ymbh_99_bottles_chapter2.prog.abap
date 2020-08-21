@@ -4,11 +4,9 @@ CLASS lcl_99_bottles DEFINITION FINAL.
 
   PUBLIC SECTION.
 
-    METHODS verse
-      IMPORTING
-        verse_number TYPE i
+    METHODS song
       RETURNING
-        VALUE(verse) TYPE stringtab.
+        VALUE(song) TYPE stringtab.
 
     METHODS verses
       IMPORTING
@@ -17,9 +15,28 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(verses) TYPE stringtab.
 
+    METHODS verse
+      IMPORTING
+        verse_number TYPE i
+      RETURNING
+        VALUE(verse) TYPE stringtab.
+
 ENDCLASS.
 
 CLASS lcl_99_bottles IMPLEMENTATION.
+
+  METHOD song.
+    song = verses( start_verse = 99
+                   end_verse   = 0 ).
+  ENDMETHOD.
+
+  METHOD verses.
+    DATA(counter) = start_verse.
+    WHILE counter >= end_verse.
+      APPEND LINES OF verse( counter ) TO verses.
+      counter = counter - 1.
+    ENDWHILE.
+  ENDMETHOD.
 
   METHOD verse.
     verse = SWITCH #( verse_number
@@ -31,14 +48,6 @@ CLASS lcl_99_bottles IMPLEMENTATION.
                                                      ( |Take one down and pass it around, 1 bottle of beer on the wall.| ) )
                         ELSE VALUE stringtab( ( |{ verse_number } bottles of beer on the wall, { verse_number } bottles of beer.| )
                                               ( |Take one down and pass it around, { verse_number - 1 } bottles of beer on the wall.| )  ) ).
-  ENDMETHOD.
-
-  METHOD verses.
-    DATA(counter) = start_verse.
-    WHILE counter >= end_verse.
-      APPEND LINES OF verse( counter ) TO verses.
-      counter = counter - 1.
-    ENDWHILE.
   ENDMETHOD.
 
 ENDCLASS.
