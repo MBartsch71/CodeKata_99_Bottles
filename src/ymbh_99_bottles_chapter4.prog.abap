@@ -35,9 +35,15 @@ CLASS lcl_99_bottles DEFINITION FINAL.
 
     METHODS quantity
       IMPORTING
-        number          TYPE i OPTIONAL
+        number          TYPE i
       RETURNING
         VALUE(quantity) TYPE string.
+
+    METHODS capitalize
+      IMPORTING
+        input         TYPE string
+      RETURNING
+        VALUE(output) TYPE string.
 
 ENDCLASS.
 
@@ -58,9 +64,9 @@ CLASS lcl_99_bottles IMPLEMENTATION.
 
   METHOD verse.
     verse = SWITCH #( verse_number
-                        WHEN 0 THEN VALUE stringtab( ( |No more bottles of beer on the wall, no more bottles of beer.| )
+                        WHEN 0 THEN VALUE stringtab( ( |{ capitalize( quantity( verse_number ) ) } { container( verse_number ) } of beer on the wall, no more bottles of beer.| )
                                                      ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
-                        ELSE VALUE stringtab( ( |{ verse_number } { container( verse_number ) } of beer on the wall, { verse_number } { container( verse_number ) } of beer.| )
+                        ELSE VALUE stringtab( ( |{ capitalize( quantity( verse_number ) ) } { container( verse_number ) } of beer on the wall, { verse_number } { container( verse_number ) } of beer.| )
                                               ( |Take { pronoun( verse_number ) } down and pass it around, { quantity( verse_number - 1 ) } { container( verse_number - 1 ) } of beer on the wall.| )  ) ).
   ENDMETHOD.
 
@@ -77,6 +83,14 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   METHOD quantity.
     quantity = COND #( WHEN number = 0 THEN |no more|
                        ELSE condense( CONV string( number ) ) ).
+  ENDMETHOD.
+
+  METHOD capitalize.
+    DATA(first_char) = input(1).
+    IF strlen( input ) > 1.
+      DATA(rest) = substring( val = input off = 1 len = strlen( input ) - 1 ).
+    ENDIF.
+    output = |{ first_char CASE = UPPER }{ rest }|.
   ENDMETHOD.
 
 ENDCLASS.
