@@ -21,6 +21,12 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(verse) TYPE stringtab.
 
+    METHODS container
+      IMPORTING
+        number           TYPE i OPTIONAL
+      RETURNING
+        VALUE(container) TYPE string.
+
 ENDCLASS.
 
 CLASS lcl_99_bottles IMPLEMENTATION.
@@ -44,10 +50,13 @@ CLASS lcl_99_bottles IMPLEMENTATION.
                                                      ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
                         WHEN 1 THEN VALUE stringtab( ( |1 bottle of beer on the wall, 1 bottle of beer.| )
                                                      ( |Take it down and pass it around, no more bottles of beer on the wall.| ) )
-                        WHEN 2 THEN VALUE stringtab( ( |{ verse_number } bottles of beer on the wall, { verse_number } bottles of beer.| )
-                                                     ( |Take one down and pass it around, { verse_number - 1 } bottle of beer on the wall.| ) )
                         ELSE VALUE stringtab( ( |{ verse_number } bottles of beer on the wall, { verse_number } bottles of beer.| )
-                                              ( |Take one down and pass it around, { verse_number - 1 } bottles of beer on the wall.| )  ) ).
+                                              ( |Take one down and pass it around, { verse_number - 1 } { container( verse_number - 1 ) } of beer on the wall.| )  ) ).
+  ENDMETHOD.
+
+  METHOD container.
+    container = COND #( WHEN number = 1 THEN |bottle|
+                        ELSE |bottles| ).
   ENDMETHOD.
 
 ENDCLASS.
