@@ -17,7 +17,7 @@ CLASS lcl_99_bottles DEFINITION FINAL.
 
     METHODS verse
       IMPORTING
-        verse_number TYPE i
+        number       TYPE i
       RETURNING
         VALUE(verse) TYPE stringtab.
 
@@ -38,6 +38,12 @@ CLASS lcl_99_bottles DEFINITION FINAL.
         number          TYPE i
       RETURNING
         VALUE(quantity) TYPE string.
+
+    METHODS action
+      IMPORTING
+        number        TYPE i
+      RETURNING
+        VALUE(action) TYPE string.
 
     METHODS capitalize
       IMPORTING
@@ -63,11 +69,15 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    verse = SWITCH #( verse_number
-                        WHEN 0 THEN VALUE stringtab( ( |{ capitalize( quantity( verse_number ) ) } { container( verse_number ) } of beer on the wall, no more bottles of beer.| )
-                                                     ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
-                        ELSE VALUE stringtab( ( |{ capitalize( quantity( verse_number ) ) } { container( verse_number ) } of beer on the wall, { verse_number } { container( verse_number ) } of beer.| )
-                                              ( |Take { pronoun( verse_number ) } down and pass it around, { quantity( verse_number - 1 ) } { container( verse_number - 1 ) } of beer on the wall.| )  ) ).
+    verse = SWITCH #( number
+                        WHEN 0 THEN VALUE stringtab( ( |{ capitalize( quantity( number ) ) } { container( number ) } of beer on the wall, | &&
+                                                       |{ quantity( number ) } { container( number ) } of beer.| )
+                                                     ( |{ action( number ) } | &&
+                                                       |99 bottles of beer on the wall.| ) )
+                        ELSE VALUE stringtab(        ( |{ capitalize( quantity( number ) ) } { container( number ) } of beer on the wall, | &&
+                                                       |{ quantity( number ) } { container( number ) } of beer.| )
+                                                     ( |{ action( number ) } | &&
+                                                       |{ quantity( number - 1 ) } { container( number - 1 ) } of beer on the wall.| )  ) ).
   ENDMETHOD.
 
   METHOD container.
@@ -91,6 +101,11 @@ CLASS lcl_99_bottles IMPLEMENTATION.
       DATA(rest) = substring( val = input off = 1 len = strlen( input ) - 1 ).
     ENDIF.
     output = |{ first_char CASE = UPPER }{ rest }|.
+  ENDMETHOD.
+
+  METHOD action.
+    action = COND #( WHEN number = 0 THEN |Go to the store and buy some more,|
+                     ELSE |Take { pronoun( number ) } down and pass it around,| ).
   ENDMETHOD.
 
 ENDCLASS.
