@@ -45,6 +45,12 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(action) TYPE string.
 
+    METHODS successor
+      IMPORTING
+        number            TYPE i
+      RETURNING
+        VALUE(number_out) TYPE i.
+
     METHODS capitalize
       IMPORTING
         input         TYPE string
@@ -69,15 +75,10 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    verse = SWITCH #( number
-                        WHEN 0 THEN VALUE stringtab( ( |{ capitalize( quantity( number ) ) } { container( number ) } of beer on the wall, | &&
+    verse = VALUE stringtab( ( |{ capitalize( quantity( number ) ) } { container( number ) } of beer on the wall, | &&
                                                        |{ quantity( number ) } { container( number ) } of beer.| )
                                                      ( |{ action( number ) } | &&
-                                                       |99 bottles of beer on the wall.| ) )
-                        ELSE VALUE stringtab(        ( |{ capitalize( quantity( number ) ) } { container( number ) } of beer on the wall, | &&
-                                                       |{ quantity( number ) } { container( number ) } of beer.| )
-                                                     ( |{ action( number ) } | &&
-                                                       |{ quantity( number - 1 ) } { container( number - 1 ) } of beer on the wall.| )  ) ).
+                                                       |{ quantity( successor( number ) ) } { container( successor( number ) ) } of beer on the wall.| ) ).
   ENDMETHOD.
 
   METHOD container.
@@ -95,6 +96,11 @@ CLASS lcl_99_bottles IMPLEMENTATION.
                        ELSE condense( CONV string( number ) ) ).
   ENDMETHOD.
 
+  METHOD action.
+    action = COND #( WHEN number = 0 THEN |Go to the store and buy some more,|
+                     ELSE |Take { pronoun( number ) } down and pass it around,| ).
+  ENDMETHOD.
+
   METHOD capitalize.
     DATA(first_char) = input(1).
     IF strlen( input ) > 1.
@@ -103,9 +109,9 @@ CLASS lcl_99_bottles IMPLEMENTATION.
     output = |{ first_char CASE = UPPER }{ rest }|.
   ENDMETHOD.
 
-  METHOD action.
-    action = COND #( WHEN number = 0 THEN |Go to the store and buy some more,|
-                     ELSE |Take { pronoun( number ) } down and pass it around,| ).
+  METHOD successor.
+    number_out = cond #( when number = 0 then 99
+                         else number - 1 ).
   ENDMETHOD.
 
 ENDCLASS.
