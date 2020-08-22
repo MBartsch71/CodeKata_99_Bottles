@@ -76,9 +76,9 @@ CLASS lcl_99_bottles IMPLEMENTATION.
 
   METHOD verse.
     verse = VALUE stringtab( ( |{ capitalize( quantity( number ) ) } { container( number ) } of beer on the wall, | &&
-                                                       |{ quantity( number ) } { container( number ) } of beer.| )
-                                                     ( |{ action( number ) } | &&
-                                                       |{ quantity( successor( number ) ) } { container( successor( number ) ) } of beer on the wall.| ) ).
+                               |{ quantity( number ) } { container( number ) } of beer.| )
+                             ( |{ action( number ) } | &&
+                               |{ quantity( successor( number ) ) } { container( successor( number ) ) } of beer on the wall.| ) ).
   ENDMETHOD.
 
   METHOD container.
@@ -101,17 +101,17 @@ CLASS lcl_99_bottles IMPLEMENTATION.
                      ELSE |Take { pronoun( number ) } down and pass it around,| ).
   ENDMETHOD.
 
+  METHOD successor.
+    number_out = cond #( when number = 0 then 99
+                         else number - 1 ).
+  ENDMETHOD.
+
   METHOD capitalize.
     DATA(first_char) = input(1).
     IF strlen( input ) > 1.
       DATA(rest) = substring( val = input off = 1 len = strlen( input ) - 1 ).
     ENDIF.
     output = |{ first_char CASE = UPPER }{ rest }|.
-  ENDMETHOD.
-
-  METHOD successor.
-    number_out = cond #( when number = 0 then 99
-                         else number - 1 ).
   ENDMETHOD.
 
 ENDCLASS.
