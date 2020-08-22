@@ -33,6 +33,12 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(pronoun) TYPE string.
 
+    METHODS quantity
+      IMPORTING
+        number          TYPE i OPTIONAL
+      RETURNING
+        VALUE(quantity) TYPE string.
+
 ENDCLASS.
 
 CLASS lcl_99_bottles IMPLEMENTATION.
@@ -54,10 +60,8 @@ CLASS lcl_99_bottles IMPLEMENTATION.
     verse = SWITCH #( verse_number
                         WHEN 0 THEN VALUE stringtab( ( |No more bottles of beer on the wall, no more bottles of beer.| )
                                                      ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
-                        WHEN 1 THEN VALUE stringtab( ( |{ verse_number } { container( verse_number ) } of beer on the wall, { verse_number } { container( verse_number ) } of beer.| )
-                                                     ( |Take { pronoun( verse_number ) } down and pass it around, no more bottles of beer on the wall.| ) )
                         ELSE VALUE stringtab( ( |{ verse_number } { container( verse_number ) } of beer on the wall, { verse_number } { container( verse_number ) } of beer.| )
-                                              ( |Take { pronoun( verse_number ) } down and pass it around, { verse_number - 1 } { container( verse_number - 1 ) } of beer on the wall.| )  ) ).
+                                              ( |Take { pronoun( verse_number ) } down and pass it around, { quantity( verse_number - 1 ) } { container( verse_number - 1 ) } of beer on the wall.| )  ) ).
   ENDMETHOD.
 
   METHOD container.
@@ -68,6 +72,11 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   METHOD pronoun.
     pronoun = COND #( WHEN number = 1 THEN |it|
                       ELSE |one| ).
+  ENDMETHOD.
+
+  METHOD quantity.
+    quantity = COND #( WHEN number = 0 THEN |no more|
+                       ELSE condense( CONV string( number ) ) ).
   ENDMETHOD.
 
 ENDCLASS.
