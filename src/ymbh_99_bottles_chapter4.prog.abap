@@ -23,9 +23,15 @@ CLASS lcl_99_bottles DEFINITION FINAL.
 
     METHODS container
       IMPORTING
-        number           TYPE i OPTIONAL
+        number           TYPE i
       RETURNING
         VALUE(container) TYPE string.
+
+    METHODS pronoun
+      IMPORTING
+        number         TYPE i
+      RETURNING
+        VALUE(pronoun) TYPE string.
 
 ENDCLASS.
 
@@ -49,14 +55,19 @@ CLASS lcl_99_bottles IMPLEMENTATION.
                         WHEN 0 THEN VALUE stringtab( ( |No more bottles of beer on the wall, no more bottles of beer.| )
                                                      ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
                         WHEN 1 THEN VALUE stringtab( ( |{ verse_number } { container( verse_number ) } of beer on the wall, { verse_number } { container( verse_number ) } of beer.| )
-                                                     ( |Take it down and pass it around, no more bottles of beer on the wall.| ) )
+                                                     ( |Take { pronoun( verse_number ) } down and pass it around, no more bottles of beer on the wall.| ) )
                         ELSE VALUE stringtab( ( |{ verse_number } { container( verse_number ) } of beer on the wall, { verse_number } { container( verse_number ) } of beer.| )
-                                              ( |Take one down and pass it around, { verse_number - 1 } { container( verse_number - 1 ) } of beer on the wall.| )  ) ).
+                                              ( |Take { pronoun( verse_number ) } down and pass it around, { verse_number - 1 } { container( verse_number - 1 ) } of beer on the wall.| )  ) ).
   ENDMETHOD.
 
   METHOD container.
     container = COND #( WHEN number = 1 THEN |bottle|
                         ELSE |bottles| ).
+  ENDMETHOD.
+
+  METHOD pronoun.
+    pronoun = COND #( WHEN number = 1 THEN |it|
+                      ELSE |one| ).
   ENDMETHOD.
 
 ENDCLASS.
