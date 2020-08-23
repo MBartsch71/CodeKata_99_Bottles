@@ -1,6 +1,6 @@
-# CodeKata_99_Bottles
+# 99 Bottles of OOP - Deep dive, review and code samples
 
-Code Katas zu 99 bottles of beer
+Code Samples zu 99 Bottles of OOP
 
 ## Kapitel-Review
 
