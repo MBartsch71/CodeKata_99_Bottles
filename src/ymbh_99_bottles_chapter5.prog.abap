@@ -88,36 +88,6 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(verse) TYPE stringtab.
 
-    METHODS container
-      IMPORTING
-        number           TYPE i
-      RETURNING
-        VALUE(container) TYPE string.
-
-    METHODS pronoun
-      IMPORTING
-        number         TYPE i
-      RETURNING
-        VALUE(pronoun) TYPE string.
-
-    METHODS quantity
-      IMPORTING
-        number          TYPE i
-      RETURNING
-        VALUE(quantity) TYPE string.
-
-    METHODS action
-      IMPORTING
-        number        TYPE i
-      RETURNING
-        VALUE(action) TYPE string.
-
-    METHODS successor
-      IMPORTING
-        number            TYPE i
-      RETURNING
-        VALUE(number_out) TYPE i.
-
     METHODS capitalize
       IMPORTING
         input         TYPE string
@@ -142,31 +112,12 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    DATA(bottle) = NEW lcl_bottle_number( number ).
-    verse = VALUE stringtab( ( |{ capitalize( bottle->quantity( ) ) } { bottle->container( ) } of beer on the wall, | &&
-                               |{ bottle->quantity( ) } { bottle->container( ) } of beer.| )
-                             ( |{ bottle->action( ) } | &&
-                               |{ quantity( successor( number ) ) } { container( successor( number ) ) } of beer on the wall.| ) ).
-  ENDMETHOD.
-
-  METHOD container.
-    container = NEW lcl_bottle_number( number )->container( ).
-  ENDMETHOD.
-
-  METHOD pronoun.
-    pronoun = NEW lcl_bottle_number( number )->pronoun( ).
-  ENDMETHOD.
-
-  METHOD quantity.
-    quantity = NEW lcl_bottle_number( number )->quantity( ).
-  ENDMETHOD.
-
-  METHOD action.
-    action = NEW lcl_bottle_number( number )->action( ).
-  ENDMETHOD.
-
-  METHOD successor.
-    number_out = NEW lcl_bottle_number( number )->successor( ).
+    DATA(bottle_number)      = NEW lcl_bottle_number( number ).
+    DATA(next_bottle_number) = NEW lcl_bottle_number( bottle_number->successor( ) ).
+    verse = VALUE stringtab( ( |{ capitalize( bottle_number->quantity( ) ) } { bottle_number->container( ) } of beer on the wall, | &&
+                               |{ bottle_number->quantity( ) } { bottle_number->container( ) } of beer.| )
+                             ( |{ bottle_number->action( ) } | &&
+                               |{ next_bottle_number->quantity( ) } { next_bottle_number->container( ) } of beer on the wall.| ) ).
   ENDMETHOD.
 
   METHOD capitalize.
