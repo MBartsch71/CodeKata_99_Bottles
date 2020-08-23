@@ -3,6 +3,7 @@ REPORT ymbh_99_bottles_chapter6.
 
 CLASS lcl_bottle_number DEFINITION.
   PUBLIC SECTION.
+    DATA number TYPE i.
 
     METHODS constructor
       IMPORTING
@@ -32,8 +33,6 @@ CLASS lcl_bottle_number DEFINITION.
       RETURNING
         VALUE(string) TYPE string.
 
-  PRIVATE SECTION.
-    DATA number TYPE i.
 
 ENDCLASS.
 
@@ -59,8 +58,7 @@ CLASS lcl_bottle_number IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD quantity.
-    quantity = COND #( WHEN me->number = 0 THEN |no more|
-                          ELSE condense( CONV string( me->number ) ) ).
+    quantity = condense( CONV string( me->number ) ).
   ENDMETHOD.
 
   METHOD successor.
@@ -70,6 +68,22 @@ CLASS lcl_bottle_number IMPLEMENTATION.
 
   METHOD to_string.
     string = |{ quantity( ) } { container( ) }|.
+  ENDMETHOD.
+
+ENDCLASS.
+
+
+CLASS lcl_bottle_number_0 DEFINITION
+                          INHERITING FROM lcl_bottle_number.
+  PUBLIC SECTION.
+    METHODS quantity REDEFINITION.
+
+ENDCLASS.
+
+CLASS lcl_bottle_number_0 IMPLEMENTATION.
+
+  METHOD quantity.
+    quantity = |no more|.
   ENDMETHOD.
 
 ENDCLASS.
@@ -102,6 +116,12 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(output) TYPE string.
 
+    METHODS bottle_number_for
+      IMPORTING
+        number               TYPE i
+      RETURNING
+        VALUE(bottle_number) TYPE REF TO lcl_bottle_number.
+
 ENDCLASS.
 
 CLASS lcl_99_bottles IMPLEMENTATION.
@@ -120,8 +140,9 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    DATA(bottle_number)      = NEW lcl_bottle_number( number ).
-    DATA(next_bottle_number) = NEW lcl_bottle_number( bottle_number->successor( ) ).
+    DATA(bottle_number)      = bottle_number_for( number ).
+    DATA(next_bottle_number) = bottle_number_for( bottle_number->successor( ) ).
+
     verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
                                |{ bottle_number->to_string( ) } of beer.| )
                              ( |{ bottle_number->action( ) } | &&
@@ -134,6 +155,11 @@ CLASS lcl_99_bottles IMPLEMENTATION.
       DATA(rest) = substring( val = input off = 1 len = strlen( input ) - 1 ).
     ENDIF.
     output = |{ first_char CASE = UPPER }{ rest }|.
+  ENDMETHOD.
+
+  METHOD bottle_number_for.
+    bottle_number = COND #( WHEN number = 0 THEN NEW lcl_bottle_number_0( number )
+                            ELSE NEW lcl_bottle_number( number ) ).
   ENDMETHOD.
 
 ENDCLASS.
