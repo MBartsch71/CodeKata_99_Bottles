@@ -54,3 +54,15 @@ verwandeln kann. Es werden Namen anhand von Verantwortlichkeiten erkannt. Es wir
 Am Ende des Kapitels ist der Code von "Shameless Green" deutlich verändert, meiner Meinung nach weniger verständlich, aber von
 Wiederholungen befreit. Die Autoren geben auch Hinweise darauf, dass Refaxctoring auch in die falsche Richtung führen kann oder
 zeitweise den Code komplizierter machen kann.
+
+### Kapitel 5
+
+Kapitel 5 widmet sich weiteren Refactoring Schritten in Richtung der Implementierung der neuen Anforderungen. Bis jetzt ist die bestehende Implementierung immer noch nciht bereit für einfache Erweiterungen. Die bestehende Klasse wird mittels der "Class extract" Methode zerlegt um Verantwortlichkeiten aufzuteilen. Es wird auf Code Smells eingegangen die dadurch entstehen, das Teile der Implementierung nur auf übergebenen Argumenten basieren und somit auch extrahiert werden können.
+Im weiteren Verlauf stellt sich heraus, dass die neue Klasse auf Basis von übergebenen "primitiven" Variablen arbeitet. Dies wird dahingehend geändert, dass auf Messaging umgestellt wird, was heisst, dass der Sender nicht mehr wissen muss, wie die Daten in der Empfängerklasse aufgebaut sind.
+Ausserdem widmet sich der Abschnitt dem Thema Caching und versucht die Erzeugung von zuvielen Objekten in den Griff zu bekommen, mit der Konsequenz einer temporären VErletzung des "Liskov Substitution Principle".
+
+### Kapitel 6
+
+### Kapitel 7
+
+### Kapitel 8
