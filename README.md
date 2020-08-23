@@ -27,9 +27,8 @@ die geringsten Entwicklungskosten hat.
 Das Kapitel schliesst mit dem Ergebnis, dass die letzte Variante genannt "Shameless Green" die Beste ist, wohlwissend,
 dass es wahrscheinlich ist, dass sie nicht gut geeignet ist Änderungen an den Anforderungen zu erfüllen.
 
-[CMAP Kapitel 1][/cmaps/chapter1.pdf]
-
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+Weitere Dokumente:
+[CMAP Kapitel 1](../cmaps/Chapter1.pdf)
 
 ### Kapitel 2
 
@@ -37,6 +36,9 @@ In diesem Kapitel geht es darum anhand des Beispiel-Codes "Shameless Green" das 
 zu erklären.
 Hier wird vor allem vermittelt, wie man erste Tests entwickelt und dann immer weitere Tests erzeugt um am Ende den gesamten Code
 mittels der Test zu vervollständigen. Dabei wird auch darauf geachtet, gute und sinnvolle Tests zu schreiben.
+
+Weitere Dokumente:
+[CMAP Kapitel 2](../cmaps/Chapter2.pdf)
 
 ### Kapitel 3
 
@@ -49,6 +51,9 @@ Status gebracht werden kann. Es wird begonnen auffällige Dopplungen im Code zu 
 erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werden zu lassen, Flocking Rules um ähnliche Stellen gleich zu machen und damit die Doppelung zu entfernen. HIlfreich dabei ist ein "Open/Close Flowchart".
 Weiterhin wird erklärt wie man verborgene Konzepte im Code findet und benamt bzw. extrahiert.
 
+Weitere Dokumente:
+[CMAP Kapitel 3](../cmaps/Chapter3.pdf)
+
 ### Kapitel 4
 
 Dieser Teil des Buchs widmet sich vordergründig dem Üben der Refactoring Methoden und das verbesserte Erkennen verborgener
@@ -59,11 +64,17 @@ Am Ende des Kapitels ist der Code von "Shameless Green" deutlich verändert, mei
 Wiederholungen befreit. Die Autoren geben auch Hinweise darauf, dass Refactoring auch in die falsche Richtung führen kann oder
 zeitweise den Code komplizierter machen kann.
 
+Weitere Dokumente:
+[CMAP Kapitel 4](../cmaps/Chapter4.pdf)
+
 ### Kapitel 5
 
 Kapitel 5 widmet sich weiteren Refactoring Schritten in Richtung der Implementierung der neuen Anforderungen. Bis jetzt ist die bestehende Implementierung immer noch nicht bereit für einfache Erweiterungen. Die bestehende Klasse wird mittels der "Class extract" Methode zerlegt um Verantwortlichkeiten aufzuteilen. Es wird auf Code Smells eingegangen die dadurch entstehen, das Teile der Implementierung nur auf übergebenen Argumenten basieren und somit auch extrahiert werden können.
 Im weiteren Verlauf stellt sich heraus, dass die neue Klasse auf Basis von übergebenen "primitiven" Variablen arbeitet. Dies wird dahingehend geändert, dass auf Messaging umgestellt wird, was heisst, dass der Sender nicht mehr wissen muss, wie die Daten in der Empfängerklasse aufgebaut sind.
 Ausserdem widmet sich der Abschnitt dem Thema Caching und versucht die Erzeugung von zu vielen Objekten in den Griff zu bekommen, mit der Konsequenz einer temporären Verletzung des "Liskov Substitution Principle".
+
+Weitere Dokumente:
+[CMAP Kapitel 5](../cmaps/Chapter5.pdf)
 
 ### Kapitel 6
 
