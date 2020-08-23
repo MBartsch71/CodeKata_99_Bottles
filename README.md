@@ -38,7 +38,7 @@ Hier wird vor allem vermittelt, wie man erste Tests entwickelt und dann immer we
 mittels der Test zu vervollständigen. Dabei wird auch darauf geachtet, gute und sinnvolle Tests zu schreiben.
 
 Weitere Dokumente:
-[CMAP Kapitel 2](cmaps/Chapter2.pdf)
+[CMAP Kapitel 2](CMaps/Chapter2.pdf)
 
 ### Kapitel 3
 
@@ -52,7 +52,7 @@ erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werde
 Weiterhin wird erklärt wie man verborgene Konzepte im Code findet und benamt bzw. extrahiert.
 
 Weitere Dokumente:
-[CMAP Kapitel 3](https://github.com/MBartsch71/CodeKata_99_Bottles/cmaps/Chapter3.pdf)
+[CMAP Kapitel 3](CMaps/Chapter3.pdf)
 
 ### Kapitel 4
 
@@ -65,7 +65,7 @@ Wiederholungen befreit. Die Autoren geben auch Hinweise darauf, dass Refactoring
 zeitweise den Code komplizierter machen kann.
 
 Weitere Dokumente:
-[CMAP Kapitel 4](https://github.com/MBartsch71/CodeKata_99_Bottles/cmaps/Chapter4.pdf)
+[CMAP Kapitel 4](CMaps/Chapter4.pdf)
 
 ### Kapitel 5
 
@@ -74,7 +74,7 @@ Im weiteren Verlauf stellt sich heraus, dass die neue Klasse auf Basis von über
 Ausserdem widmet sich der Abschnitt dem Thema Caching und versucht die Erzeugung von zu vielen Objekten in den Griff zu bekommen, mit der Konsequenz einer temporären Verletzung des "Liskov Substitution Principle".
 
 Weitere Dokumente:
-[CMAP Kapitel 5](https://github.com/MBartsch71/CodeKata_99_Bottles/cmaps/Chapter5.pdf)
+[CMAP Kapitel 5](CMaps/Chapter5.pdf)
 
 ### Kapitel 6
 
