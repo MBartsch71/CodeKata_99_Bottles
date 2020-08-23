@@ -142,9 +142,10 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    verse = VALUE stringtab( ( |{ capitalize( quantity( number ) ) } { container( number ) } of beer on the wall, | &&
-                               |{ quantity( number ) } { container( number ) } of beer.| )
-                             ( |{ action( number ) } | &&
+    DATA(bottle) = NEW lcl_bottle_number( number ).
+    verse = VALUE stringtab( ( |{ capitalize( bottle->quantity( ) ) } { bottle->container( ) } of beer on the wall, | &&
+                               |{ bottle->quantity( ) } { bottle->container( ) } of beer.| )
+                             ( |{ bottle->action( ) } | &&
                                |{ quantity( successor( number ) ) } { container( successor( number ) ) } of beer on the wall.| ) ).
   ENDMETHOD.
 
