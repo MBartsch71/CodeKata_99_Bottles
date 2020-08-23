@@ -28,7 +28,7 @@ Das Kapitel schliesst mit dem Ergebnis, dass die letzte Variante genannt "Shamel
 dass es wahrscheinlich ist, dass sie nicht gut geeignet ist Änderungen an den Anforderungen zu erfüllen.
 
 Weitere Dokumente:
-[CMAP Kapitel 1](https://github.com/MBartsch71/CodeKata_99_Bottles/cmaps/Chapter1.pdf)
+[CMAP Kapitel 1](CMaps/Chapter1.pdf)
 
 ### Kapitel 2
 
