@@ -6,7 +6,7 @@ Code Katas zu 99 bottles of beer
 
 ### Kapitel 1
 
-In Kapitel 1 werden vier verschiedene Lösungen entwickelt um den Song "99 Bottles of beer" in Code auszudrücken
+In Kapitel 1 werden vier verschiedene Lösungen entwickelt um den Song "99 bottles of beer" in Code auszudrücken
 Nachdem die vier Varianten erzeugt wurden, wird untersucht wie sich die unterschiedlichen Alternativen in Bezug auf
 folgende Schlüsselfragen verhalten:
 
