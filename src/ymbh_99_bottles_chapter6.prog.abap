@@ -43,18 +43,15 @@ CLASS lcl_bottle_number IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD action.
-    action = COND #( WHEN me->number = 0 THEN |Go to the store and buy some more,|
-                     ELSE |Take { pronoun( ) } down and pass it around,| ).
+    action = |Take { pronoun( ) } down and pass it around,|.
   ENDMETHOD.
 
   METHOD container.
-    container = COND #( WHEN me->number = 1 THEN |bottle|
-                          ELSE |bottles| ).
+    container = |bottles|.
   ENDMETHOD.
 
   METHOD pronoun.
-    pronoun = COND #( WHEN me->number = 1 THEN |it|
-                      ELSE |one| ).
+    pronoun = |one|.
   ENDMETHOD.
 
   METHOD quantity.
@@ -62,8 +59,7 @@ CLASS lcl_bottle_number IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD successor.
-    number_out = COND #( WHEN me->number = 0 THEN 99
-                         ELSE me->number - 1 ).
+    number_out = me->number - 1.
   ENDMETHOD.
 
   METHOD to_string.
@@ -76,7 +72,9 @@ ENDCLASS.
 CLASS lcl_bottle_number_0 DEFINITION
                           INHERITING FROM lcl_bottle_number.
   PUBLIC SECTION.
-    METHODS quantity REDEFINITION.
+    METHODS quantity  REDEFINITION.
+    METHODS action    REDEFINITION.
+    METHODS successor REDEFINITION.
 
 ENDCLASS.
 
@@ -84,6 +82,33 @@ CLASS lcl_bottle_number_0 IMPLEMENTATION.
 
   METHOD quantity.
     quantity = |no more|.
+  ENDMETHOD.
+
+  METHOD action.
+    action = |Go to the store and buy some more,|.
+  ENDMETHOD.
+
+  METHOD successor.
+    number_out = 99.
+  ENDMETHOD.
+
+ENDCLASS.
+
+CLASS lcl_bottle_number_1 DEFINITION
+                          INHERITING FROM lcl_bottle_number.
+  PUBLIC SECTION.
+    METHODS container REDEFINITION.
+    METHODS pronoun   REDEFINITION.
+ENDCLASS.
+
+CLASS lcl_bottle_number_1 IMPLEMENTATION.
+
+  METHOD container.
+    container = |bottle|.
+  ENDMETHOD.
+
+  METHOD pronoun.
+    pronoun = |it|.
   ENDMETHOD.
 
 ENDCLASS.
@@ -158,8 +183,9 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD bottle_number_for.
-    bottle_number = COND #( WHEN number = 0 THEN NEW lcl_bottle_number_0( number )
-                            ELSE NEW lcl_bottle_number( number ) ).
+    bottle_number = SWITCH #( number WHEN 0 THEN NEW lcl_bottle_number_0( number )
+                                     WHEN 1 THEN NEW lcl_bottle_number_1( number )
+                                     ELSE NEW lcl_bottle_number( number ) ).
   ENDMETHOD.
 
 ENDCLASS.
