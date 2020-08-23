@@ -9,32 +9,22 @@ CLASS lcl_bottle_number DEFINITION.
         number TYPE i.
 
     METHODS container
-      IMPORTING
-        number           TYPE i
       RETURNING
         VALUE(container) TYPE string.
 
     METHODS pronoun
-      IMPORTING
-        number         TYPE i
       RETURNING
         VALUE(pronoun) TYPE string.
 
     METHODS quantity
-      IMPORTING
-        number          TYPE i
       RETURNING
         VALUE(quantity) TYPE string.
 
     METHODS action
-      IMPORTING
-        number        TYPE i
       RETURNING
         VALUE(action) TYPE string.
 
     METHODS successor
-      IMPORTING
-        number            TYPE i
       RETURNING
         VALUE(number_out) TYPE i.
 
@@ -50,28 +40,28 @@ CLASS lcl_bottle_number IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD action.
-    action = COND #( WHEN number = 0 THEN |Go to the store and buy some more,|
-                       ELSE |Take { pronoun( number ) } down and pass it around,| ).
+    action = COND #( WHEN me->number = 0 THEN |Go to the store and buy some more,|
+                     ELSE |Take { pronoun( ) } down and pass it around,| ).
   ENDMETHOD.
 
   METHOD container.
-    container = COND #( WHEN number = 1 THEN |bottle|
+    container = COND #( WHEN me->number = 1 THEN |bottle|
                           ELSE |bottles| ).
   ENDMETHOD.
 
   METHOD pronoun.
-    pronoun = COND #( WHEN number = 1 THEN |it|
+    pronoun = COND #( WHEN me->number = 1 THEN |it|
                       ELSE |one| ).
   ENDMETHOD.
 
   METHOD quantity.
-    quantity = COND #( WHEN number = 0 THEN |no more|
-                          ELSE condense( CONV string( number ) ) ).
+    quantity = COND #( WHEN me->number = 0 THEN |no more|
+                          ELSE condense( CONV string( me->number ) ) ).
   ENDMETHOD.
 
   METHOD successor.
-    number_out = COND #( WHEN number = 0 THEN 99
-                           ELSE number - 1 ).
+    number_out = COND #( WHEN me->number = 0 THEN 99
+                         ELSE me->number - 1 ).
   ENDMETHOD.
 
 ENDCLASS.
@@ -159,23 +149,23 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD container.
-    container = NEW lcl_bottle_number( number )->container( number ).
+    container = NEW lcl_bottle_number( number )->container( ).
   ENDMETHOD.
 
   METHOD pronoun.
-    pronoun = NEW lcl_bottle_number( number )->pronoun( number ).
+    pronoun = NEW lcl_bottle_number( number )->pronoun( ).
   ENDMETHOD.
 
   METHOD quantity.
-    quantity = NEW lcl_bottle_number( number )->quantity( number ).
+    quantity = NEW lcl_bottle_number( number )->quantity( ).
   ENDMETHOD.
 
   METHOD action.
-    action = NEW lcl_bottle_number( number )->action( number ).
+    action = NEW lcl_bottle_number( number )->action( ).
   ENDMETHOD.
 
   METHOD successor.
-    number_out = NEW lcl_bottle_number( number )->successor( number ).
+    number_out = NEW lcl_bottle_number( number )->successor( ).
   ENDMETHOD.
 
   METHOD capitalize.
