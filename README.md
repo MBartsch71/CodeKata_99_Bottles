@@ -38,7 +38,7 @@ Hier wird vor allem vermittelt, wie man erste Tests entwickelt und dann immer we
 mittels der Test zu vervollständigen. Dabei wird auch darauf geachtet, gute und sinnvolle Tests zu schreiben.
 
 Weitere Dokumente:
-[CMAP Kapitel 2](https://github.com/MBartsch71/CodeKata_99_Bottles/cmaps/Chapter2.pdf)
+[CMAP Kapitel 2](cmaps/Chapter2.pdf)
 
 ### Kapitel 3
 
