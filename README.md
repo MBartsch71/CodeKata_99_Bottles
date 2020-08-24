@@ -6,7 +6,7 @@ Code Samples zu 99 Bottles of OOP
 
 ### Kapitel 1
 
-In Kapitel 1 werden vier verschiedene Lösungen entwickelt um den Song "99 bottles of beer" in Code auszudrücken
+In Kapitel 1 werden vier verschiedene Lösungen entwickelt um den Song "99 bottles of beer" in Code auszudrücken.
 Nachdem die vier Varianten erzeugt wurden, wird untersucht wie sich die unterschiedlichen Alternativen in Bezug auf
 folgende Schlüsselfragen verhalten:
 
@@ -21,8 +21,7 @@ Weiterhin wird anhand einiger Metriken der Code analysiert.
 - ABC
 - Cyclomatic complexity
 
-Schlussendlich wird auch danach geschaut, welcher Code am verständlichsten ist und welcher
-die geringsten Entwicklungskosten hat.
+Schlussendlich wird auch danach geschaut, welcher Code am verständlichsten ist und welcher die geringsten Entwicklungskosten hat.
 
 Das Kapitel schliesst mit dem Ergebnis, dass die letzte Variante genannt "Shameless Green" die Beste ist, wohlwissend,
 dass es wahrscheinlich ist, dass sie nicht gut geeignet ist Änderungen an den Anforderungen zu erfüllen.
@@ -32,7 +31,7 @@ Weitere Dokumente:
 
 ### Kapitel 2
 
-In diesem Kapitel geht es darum anhand des Beispiel-Codes "Shameless Green" das Konzet der Testgetriebenen Entwicklung (TDD)
+In diesem Kapitel geht es darum anhand des Beispiel-Codes "Shameless Green" das Konzept der Testgetriebenen Entwicklung (TDD)
 zu erklären.
 Hier wird vor allem vermittelt, wie man erste Tests entwickelt und dann immer weitere Tests erzeugt um am Ende den gesamten Code
 mittels der Test zu vervollständigen. Dabei wird auch darauf geachtet, gute und sinnvolle Tests zu schreiben.
@@ -42,13 +41,13 @@ Weitere Dokumente:
 
 ### Kapitel 3
 
-Kapitel 3 führt dann die erwartete Änderung der Anforderungen ein. Es geht darum nicht nur über Flaschen zu singen, sondern wenn
+Kapitel 3 führt dann die erwartete Änderung der Anforderungen ein. Es geht darum, nicht nur über Flaschen zu singen, sondern wenn
 es um genau 6 FLaschen geht, den Begriff "Sixpack" zu verwenden.
 Hier wird jetzt untersucht, ob der bestehende Code dem "Open/Close Principle" entspricht, was heisst, ob der Code geschlossen gegenüber Ändeurngen ist aber gleichzeitig offen für Erweiterungen.
 
 Augenscheinlich ist das der bestehende Code nicht, und so wird untersucht, wie dieser mit Hilfe von "Refactoring" in diesen
 Status gebracht werden kann. Es wird begonnen auffällige Dopplungen im Code zu eliminieren. Dabei werden Refactoring Techniken
-erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werden zu lassen, Flocking Rules um ähnliche Stellen gleich zu machen und damit die Doppelung zu entfernen. HIlfreich dabei ist ein ["Open/Close Flowchart"](charts/OpenCloseFlowchart.png).
+erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werden zu lassen, Flocking Rules um ähnliche Stellen gleich zu machen und damit die Doppelung zu entfernen. Hilfreich dabei ist ein ["Open/Close Flowchart"](charts/OpenCloseFlowchart.png).
 Weiterhin wird erklärt wie man verborgene Konzepte im Code findet und benamt bzw. extrahiert.
 
 Weitere Dokumente:
@@ -78,7 +77,7 @@ Weitere Dokumente:
 
 ### Kapitel 6
 
-Dieser Abschnitt widmet sich dem Refactopring mit Ziel, die neue Anforderung zu implementieren. Auf dem Weg dorthin wurden neue Code Smells entdeckt und behoben. Weiterhin wurde die in Kapitel 5 erzeugt Verletzung des "Liskov Substitution Principles" elimniert. Es wurde eine Factory eingeführt, welche die benötigten Objekte zurückgibt und in diesem Zuge wurden auch Reste der primitiven Variablen entfernt und alles auf Objekte umgestellt. Nicht zuletzt kam Polymorphie in Gestalt von vererbung zum Einsatz.
+Dieser Abschnitt widmet sich dem Refactoring mit Ziel, die neue Anforderung zu implementieren. Auf dem Weg dorthin wurden neue Code Smells entdeckt und behoben. Weiterhin wurde die in Kapitel 5 erzeugt Verletzung des "Liskov Substitution Principles" elimniert. Es wurde eine Factory eingeführt, welche die benötigten Objekte zurückgibt und in diesem Zuge wurden auch Reste der primitiven Variablen entfernt und alles auf Objekte umgestellt. Nicht zuletzt kam Polymorphie in Gestalt von Vererbung zum Einsatz.
 
 Weitere Dokumente:
 [CMAP Kapitel 6](CMaps/Chapter6.pdf)
