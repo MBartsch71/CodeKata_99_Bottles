@@ -48,7 +48,7 @@ Hier wird jetzt untersucht, ob der bestehende Code dem "Open/Close Principle" en
 
 Augenscheinlich ist das der bestehende Code nicht, und so wird untersucht, wie dieser mit Hilfe von "Refactoring" in diesen
 Status gebracht werden kann. Es wird begonnen auffällige Dopplungen im Code zu eliminieren. Dabei werden Refactoring Techniken
-erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werden zu lassen, Flocking Rules um ähnliche Stellen gleich zu machen und damit die Doppelung zu entfernen. HIlfreich dabei ist ein "Open/Close Flowchart".
+erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werden zu lassen, Flocking Rules um ähnliche Stellen gleich zu machen und damit die Doppelung zu entfernen. HIlfreich dabei ist ein ["Open/Close Flowchart"](charts/OpenCloseFlowchart.png).
 Weiterhin wird erklärt wie man verborgene Konzepte im Code findet und benamt bzw. extrahiert.
 
 Weitere Dokumente:
