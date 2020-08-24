@@ -78,6 +78,11 @@ Weitere Dokumente:
 
 ### Kapitel 6
 
+Dieser Abschnitt widmet sich dem Refactopring mit Ziel, die neue Anforderung zu implementieren. Auf dem Weg dorthin wurden neue Code Smells entdeckt und behoben. Weiterhin wurde die in Kapitel 5 erzeugt Verletzung des "Liskov Substitution Principles" elimniert. Es wurde eine Factory eingeführt, welche die benötigten Objekte zurückgibt und in diesem Zuge wurden auch Reste der primitiven Variablen entfernt und alles auf OBjekte umgestellt. Nicht zuletzt kam Polymorphie in GEstalt von vererbung zum Einsatz.
+
+Weitere Dokumente:
+[CMAP Kapitel 6](CMaps/Chapter6.pdf)
+
 ### Kapitel 7
 
 ### Kapitel 8
