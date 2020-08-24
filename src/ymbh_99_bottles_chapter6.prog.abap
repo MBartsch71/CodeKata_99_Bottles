@@ -1,9 +1,14 @@
 REPORT ymbh_99_bottles_chapter6.
 
-
 CLASS lcl_bottle_number DEFINITION.
   PUBLIC SECTION.
     DATA number TYPE i.
+
+    CLASS-METHODS for
+      IMPORTING
+        number               TYPE i
+      RETURNING
+        VALUE(bottle_number) TYPE REF TO lcl_bottle_number.
 
     METHODS constructor
       IMPORTING
@@ -27,7 +32,7 @@ CLASS lcl_bottle_number DEFINITION.
 
     METHODS successor
       RETURNING
-        VALUE(number_out) TYPE i.
+        VALUE(bottle_number) TYPE REF TO lcl_bottle_number.
 
     METHODS to_string
       RETURNING
@@ -35,6 +40,30 @@ CLASS lcl_bottle_number DEFINITION.
 
 
 ENDCLASS.
+
+CLASS lcl_bottle_number_0 DEFINITION
+                          INHERITING FROM lcl_bottle_number.
+  PUBLIC SECTION.
+    METHODS quantity  REDEFINITION.
+    METHODS action    REDEFINITION.
+    METHODS successor REDEFINITION.
+
+ENDCLASS.
+
+CLASS lcl_bottle_number_1 DEFINITION
+                          INHERITING FROM lcl_bottle_number.
+  PUBLIC SECTION.
+    METHODS container REDEFINITION.
+    METHODS pronoun   REDEFINITION.
+ENDCLASS.
+
+CLASS lcl_bottle_number_6 DEFINITION
+                          INHERITING FROM lcl_bottle_number.
+  PUBLIC SECTION.
+    METHODS quantity REDEFINITION.
+    METHODS container REDEFINITION.
+ENDCLASS.
+
 
 CLASS lcl_bottle_number IMPLEMENTATION.
 
@@ -59,24 +88,22 @@ CLASS lcl_bottle_number IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD successor.
-    number_out = me->number - 1.
+    bottle_number = lcl_bottle_number=>for( number - 1 ).
   ENDMETHOD.
 
   METHOD to_string.
     string = |{ quantity( ) } { container( ) }|.
   ENDMETHOD.
 
-ENDCLASS.
-
-
-CLASS lcl_bottle_number_0 DEFINITION
-                          INHERITING FROM lcl_bottle_number.
-  PUBLIC SECTION.
-    METHODS quantity  REDEFINITION.
-    METHODS action    REDEFINITION.
-    METHODS successor REDEFINITION.
+  METHOD for.
+    bottle_number = SWITCH #( number WHEN 0 THEN NEW lcl_bottle_number_0( number )
+                                     WHEN 1 THEN NEW lcl_bottle_number_1( number )
+                                     WHEN 6 THEN NEW lcl_bottle_number_6( number )
+                                     ELSE NEW lcl_bottle_number( number ) ).
+  ENDMETHOD.
 
 ENDCLASS.
+
 
 CLASS lcl_bottle_number_0 IMPLEMENTATION.
 
@@ -89,17 +116,11 @@ CLASS lcl_bottle_number_0 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD successor.
-    number_out = 99.
+    bottle_number = lcl_bottle_number=>for( 99 ).
   ENDMETHOD.
 
 ENDCLASS.
 
-CLASS lcl_bottle_number_1 DEFINITION
-                          INHERITING FROM lcl_bottle_number.
-  PUBLIC SECTION.
-    METHODS container REDEFINITION.
-    METHODS pronoun   REDEFINITION.
-ENDCLASS.
 
 CLASS lcl_bottle_number_1 IMPLEMENTATION.
 
@@ -109,6 +130,19 @@ CLASS lcl_bottle_number_1 IMPLEMENTATION.
 
   METHOD pronoun.
     pronoun = |it|.
+  ENDMETHOD.
+
+ENDCLASS.
+
+
+CLASS lcl_bottle_number_6 IMPLEMENTATION.
+
+  METHOD container.
+    container = |six-pack|.
+  ENDMETHOD.
+
+  METHOD quantity.
+    quantity = condense( CONV string( 1 ) ).
   ENDMETHOD.
 
 ENDCLASS.
@@ -141,12 +175,6 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(output) TYPE string.
 
-    METHODS bottle_number_for
-      IMPORTING
-        number               TYPE i
-      RETURNING
-        VALUE(bottle_number) TYPE REF TO lcl_bottle_number.
-
 ENDCLASS.
 
 CLASS lcl_99_bottles IMPLEMENTATION.
@@ -165,13 +193,12 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    DATA(bottle_number)      = bottle_number_for( number ).
-    DATA(next_bottle_number) = bottle_number_for( bottle_number->successor( ) ).
+    DATA(bottle_number)      = lcl_bottle_number=>for( number ).
 
     verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
                                |{ bottle_number->to_string( ) } of beer.| )
                              ( |{ bottle_number->action( ) } | &&
-                               |{ next_bottle_number->to_string( ) } of beer on the wall.| ) ).
+                               |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
   ENDMETHOD.
 
   METHOD capitalize.
@@ -180,12 +207,6 @@ CLASS lcl_99_bottles IMPLEMENTATION.
       DATA(rest) = substring( val = input off = 1 len = strlen( input ) - 1 ).
     ENDIF.
     output = |{ first_char CASE = UPPER }{ rest }|.
-  ENDMETHOD.
-
-  METHOD bottle_number_for.
-    bottle_number = SWITCH #( number WHEN 0 THEN NEW lcl_bottle_number_0( number )
-                                     WHEN 1 THEN NEW lcl_bottle_number_1( number )
-                                     ELSE NEW lcl_bottle_number( number ) ).
   ENDMETHOD.
 
 ENDCLASS.
@@ -361,8 +382,8 @@ CLASS ltc_99_bottles IMPLEMENTATION.
                               ( |10 bottles of beer on the wall, 10 bottles of beer.| ) ( |Take one down and pass it around, 9 bottles of beer on the wall.| )
                               ( |9 bottles of beer on the wall, 9 bottles of beer.| )   ( |Take one down and pass it around, 8 bottles of beer on the wall.| )
                               ( |8 bottles of beer on the wall, 8 bottles of beer.| )   ( |Take one down and pass it around, 7 bottles of beer on the wall.| )
-                              ( |7 bottles of beer on the wall, 7 bottles of beer.| )   ( |Take one down and pass it around, 6 bottles of beer on the wall.| )
-                              ( |6 bottles of beer on the wall, 6 bottles of beer.| )   ( |Take one down and pass it around, 5 bottles of beer on the wall.| )
+                              ( |7 bottles of beer on the wall, 7 bottles of beer.| )   ( |Take one down and pass it around, 1 six-pack of beer on the wall.| )
+                              ( |1 six-pack of beer on the wall, 1 six-pack of beer.| ) ( |Take one down and pass it around, 5 bottles of beer on the wall.| )
                               ( |5 bottles of beer on the wall, 5 bottles of beer.| )   ( |Take one down and pass it around, 4 bottles of beer on the wall.| )
                               ( |4 bottles of beer on the wall, 4 bottles of beer.| )   ( |Take one down and pass it around, 3 bottles of beer on the wall.| )
                               ( |3 bottles of beer on the wall, 3 bottles of beer.| )   ( |Take one down and pass it around, 2 bottles of beer on the wall.| )
