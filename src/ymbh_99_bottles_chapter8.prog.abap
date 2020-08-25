@@ -148,6 +148,54 @@ CLASS lcl_bottle_number_6 IMPLEMENTATION.
 ENDCLASS.
 
 
+CLASS bottle_verse DEFINITION.
+  PUBLIC SECTION.
+    METHODS constructor
+      IMPORTING
+        number TYPE i.
+
+    METHODS verse
+      IMPORTING
+        number       TYPE i
+      RETURNING
+        VALUE(verse) TYPE stringtab.
+
+  PRIVATE SECTION.
+    DATA number TYPE i.
+
+    METHODS capitalize
+      IMPORTING
+        input         TYPE string
+      RETURNING
+        VALUE(output) TYPE string.
+ENDCLASS.
+
+CLASS bottle_verse IMPLEMENTATION.
+
+  METHOD constructor.
+    me->number = number.
+  ENDMETHOD.
+
+  METHOD verse.
+    DATA(bottle_number)      = lcl_bottle_number=>for( number ).
+
+    verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
+                               |{ bottle_number->to_string( ) } of beer.| )
+                             ( |{ bottle_number->action( ) } | &&
+                               |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
+  ENDMETHOD.
+
+  METHOD capitalize.
+    DATA(first_char) = input(1).
+    IF strlen( input ) > 1.
+      DATA(rest) = substring( val = input off = 1 len = strlen( input ) - 1 ).
+    ENDIF.
+    output = |{ first_char CASE = UPPER }{ rest }|.
+  ENDMETHOD.
+
+ENDCLASS.
+
+
 CLASS lcl_99_bottles DEFINITION FINAL.
 
   PUBLIC SECTION.
@@ -193,24 +241,13 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-  "if song = '99 bottles song.
-    DATA(bottle_number)      = lcl_bottle_number=>for( number ).
-
-    verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
-                               |{ bottle_number->to_string( ) } of beer.| )
-                             ( |{ bottle_number->action( ) } | &&
-                               |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
-  "
-  "elseif song =  'Song2.
-  " ...
-  " assemble verse for unknown song 2
-  "...
-  "elseif song = 'Song3'.
-  "...
-  " assemble verse for unknown Song 3
-  " ...
-  " endif.
-
+    verse = new bottle_verse( number )->verse( number ).
+*    DATA(bottle_number)      = lcl_bottle_number=>for( number ).
+*
+*    verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
+*                               |{ bottle_number->to_string( ) } of beer.| )
+*                             ( |{ bottle_number->action( ) } | &&
+*                               |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
   ENDMETHOD.
 
   METHOD capitalize.
