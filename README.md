@@ -84,6 +84,14 @@ Weitere Dokumente:
 
 ### Kapitel 7
 
+Kapitel 7 widmet sich einer tieferen Betrachtung der Möglichkeiten einer Factory. Bezugnehmend auf die Einführung der Factory Methode in Kapitel 6 wird untersucht, welche verschiedenen Möglichkeiten es gibt Factories zu verwenden. Untersucht wird welche Möglichkeiten es gibt , die Contidional Logik in der aktuellen Factory Implementierung zu eliminieren. Eine Einführung was Factories sind und welchen Zweck sie verfolgen ist sehr aufschlussreich.
+Viele Varianten der Verwendung von Factories resultieren in Code der die Intention welche Klasse warum verwendet wird etwas verschleiert.
+Interessant ist das Konzept sich selbst registrierender Klassen. Dort aber ist die Erklärung etwas weniger verständlich und der Beispielcode meiner Meinung nach etwas zu abstrakt, da für mich nicht klar hervorgeht wann denn die Registrierung der einzelnen Subclasses erfolgt.
+Das Fazit des Kapitels ist, dass es keine Patentrezept gibt, wie Factories am besten zu verwenden sind und es, wie immer, auf den Anwendungsfall ankommt.
+
+Weitere Dokumente:
+[CMAP Kapitel 7](CMaps/Chapter7.pdf)
+
 ### Kapitel 8
 
 ### Kapitel 9
