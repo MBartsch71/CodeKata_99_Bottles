@@ -154,9 +154,7 @@ CLASS bottle_verse DEFINITION.
       IMPORTING
         number TYPE i.
 
-    METHODS verse
-      IMPORTING
-        number       TYPE i
+    METHODS lyrics
       RETURNING
         VALUE(verse) TYPE stringtab.
 
@@ -176,8 +174,8 @@ CLASS bottle_verse IMPLEMENTATION.
     me->number = number.
   ENDMETHOD.
 
-  METHOD verse.
-    DATA(bottle_number)      = lcl_bottle_number=>for( number ).
+  METHOD lyrics.
+    DATA(bottle_number) = lcl_bottle_number=>for( me->number ).
 
     verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
                                |{ bottle_number->to_string( ) } of beer.| )
@@ -241,13 +239,7 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    verse = new bottle_verse( number )->verse( number ).
-*    DATA(bottle_number)      = lcl_bottle_number=>for( number ).
-*
-*    verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
-*                               |{ bottle_number->to_string( ) } of beer.| )
-*                             ( |{ bottle_number->action( ) } | &&
-*                               |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
+    verse = new bottle_verse( number )->lyrics( ).
   ENDMETHOD.
 
   METHOD capitalize.
