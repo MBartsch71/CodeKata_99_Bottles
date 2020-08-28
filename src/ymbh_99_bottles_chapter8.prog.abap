@@ -1,5 +1,11 @@
 REPORT ymbh_99_bottles_chapter8.
 
+INTERFACE verse_template.
+  METHODS lyrics
+    RETURNING
+      VALUE(lyrics) TYPE stringtab.
+ENDINTERFACE.
+
 CLASS lcl_bottle_number DEFINITION.
   PUBLIC SECTION.
     DATA number TYPE i.
@@ -150,13 +156,11 @@ ENDCLASS.
 
 CLASS bottle_verse DEFINITION.
   PUBLIC SECTION.
+    INTERFACES verse_template.
+
     METHODS constructor
       IMPORTING
         number TYPE i.
-
-    METHODS lyrics
-      RETURNING
-        VALUE(verse) TYPE stringtab.
 
   PRIVATE SECTION.
     DATA number TYPE i.
@@ -174,10 +178,10 @@ CLASS bottle_verse IMPLEMENTATION.
     me->number = number.
   ENDMETHOD.
 
-  METHOD lyrics.
+  METHOD verse_template~lyrics.
     DATA(bottle_number) = lcl_bottle_number=>for( me->number ).
 
-    verse = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
+    lyrics = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
                                |{ bottle_number->to_string( ) } of beer.| )
                              ( |{ bottle_number->action( ) } | &&
                                |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
@@ -221,6 +225,9 @@ CLASS lcl_99_bottles DEFINITION FINAL.
       RETURNING
         VALUE(output) TYPE string.
 
+  PRIVATE SECTION.
+    DATA verse_template TYPE REF TO verse_template.
+
 ENDCLASS.
 
 CLASS lcl_99_bottles IMPLEMENTATION.
@@ -239,7 +246,7 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    verse = new bottle_verse( number )->lyrics( ).
+    verse = NEW bottle_verse( number )->verse_template~lyrics( ).
   ENDMETHOD.
 
   METHOD capitalize.
