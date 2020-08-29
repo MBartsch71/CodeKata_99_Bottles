@@ -102,3 +102,9 @@ Weitere Dokumente:
 [CMAP: Law of Demeter](CMaps/LawOfDemeter.pdf)
 
 ### Kapitel 9
+
+Das letzte Kapitel widmet sich erneut den Tests. Da im Verlaufe des Refactoring keine weiteren Tests hinzukamen, sind die bestehenden Tests jetzt nicht mehr im eigentlichen Sinne Unit Tests, sondern eher Integrationstests. Zu Anfang des Kapitels wird auf den Unterschied zwischen diesen beiden Arten eingegangen.
+Danach werden Methoden und Beispiele präsentiert, den Code mit neuen Unit Tests zu untermauern. Im Laufe dieses Vorgehens werden auch noch weitere Refactoring Schritte unternommen, um einerseits den Code weiter zu abstrahieren und andererseits die Tests auch so zu strukturieren, dass sie als Dokumentation für den eigentlichen Code dienen können.
+
+Weitere Dokumente:  
+[CMAP: Kapitel 9](CMaps/Chapter9.pdf)
