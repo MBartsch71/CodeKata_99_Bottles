@@ -205,30 +205,6 @@ CLASS bottle_verse IMPLEMENTATION.
 
 ENDCLASS.
 
-CLASS verse_fake DEFINITION.
-  PUBLIC SECTION.
-    INTERFACES verse_template.
-
-    CLASS-METHODS lyrics
-      IMPORTING
-        number        TYPE i
-      RETURNING
-        VALUE(lyrcis) TYPE stringtab.
-ENDCLASS.
-
-CLASS verse_fake IMPLEMENTATION.
-
-  METHOD lyrics.
-    lyrcis = VALUE #( ( |This verse { number }.| ) ).
-  ENDMETHOD.
-
-  METHOD verse_template~lyrics.
-
-  ENDMETHOD.
-
-ENDCLASS.
-
-
 
 CLASS countdown_song DEFINITION FINAL.
 
@@ -236,7 +212,9 @@ CLASS countdown_song DEFINITION FINAL.
 
     METHODS constructor
       IMPORTING
-        verse_template TYPE REF TO verse_template OPTIONAL.
+        verse_template TYPE REF TO verse_template OPTIONAL
+        start_verse    TYPE i DEFAULT 99
+        end_verse      TYPE i DEFAULT 0.
 
     METHODS song
       RETURNING
@@ -263,6 +241,8 @@ CLASS countdown_song DEFINITION FINAL.
 
   PRIVATE SECTION.
     DATA verse_template TYPE REF TO verse_template.
+    DATA start_verse TYPE i.
+    DATA end_verse TYPE i.
 
 ENDCLASS.
 
@@ -271,11 +251,13 @@ CLASS countdown_song IMPLEMENTATION.
   METHOD constructor.
     me->verse_template = COND #( WHEN verse_template IS BOUND THEN verse_template
                                  ELSE NEW bottle_verse( lcl_bottle_number=>for( 99 ) ) ).
+    me->start_verse = start_verse.
+    me->end_verse = end_verse.
   ENDMETHOD.
 
   METHOD song.
-    song = verses( start_verse = 99
-                   end_verse   = 0 ).
+    song = verses( start_verse = me->start_verse
+                   end_verse   = me->end_verse ).
   ENDMETHOD.
 
   METHOD verses.
@@ -306,9 +288,8 @@ CLASS ltc_countdown_song DEFINITION FINAL FOR TESTING
   RISK LEVEL HARMLESS.
 
   PRIVATE SECTION.
-    METHODS verses         FOR TESTING.
-    METHODS the_whole_song FOR TESTING.
-
+    METHODS verses FOR TESTING.
+    METHODS song   FOR TESTING.
 
 ENDCLASS.
 
@@ -325,7 +306,7 @@ CLASS ltc_countdown_song IMPLEMENTATION.
                                              end_verse   = 98 ) ).
   ENDMETHOD.
 
-  METHOD the_whole_song.
+  METHOD song.
     cl_abap_unit_assert=>assert_equals(
        exp = VALUE stringtab( ( |99 bottles of beer on the wall, 99 bottles of beer.| ) ( |Take one down and pass it around, 98 bottles of beer on the wall.| )
                               ( |98 bottles of beer on the wall, 98 bottles of beer.| ) ( |Take one down and pass it around, 97 bottles of beer on the wall.| )
