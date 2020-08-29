@@ -160,9 +160,9 @@ CLASS bottle_verse DEFINITION.
 
     CLASS-METHODS lyrics
       IMPORTING
-        number               TYPE i
+        number        TYPE i
       RETURNING
-        VALUE(bottle_number) TYPE stringtab.
+        VALUE(lyrcis) TYPE stringtab.
 
     METHODS constructor
       IMPORTING
@@ -181,7 +181,7 @@ ENDCLASS.
 CLASS bottle_verse IMPLEMENTATION.
 
   METHOD lyrics.
-    bottle_number = NEW bottle_verse( lcl_bottle_number=>for( number ) )->verse_template~lyrics( ).
+    lyrcis = NEW bottle_verse( lcl_bottle_number=>for( number ) )->verse_template~lyrics( ).
   ENDMETHOD.
 
   METHOD constructor.
@@ -189,12 +189,10 @@ CLASS bottle_verse IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse_template~lyrics.
-*    DATA(bottle_number) = lcl_bottle_number=>for( me->number ).
-
     lyrics = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
-                               |{ bottle_number->to_string( ) } of beer.| )
-                             ( |{ bottle_number->action( ) } | &&
-                               |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
+                                |{ bottle_number->to_string( ) } of beer.| )
+                              ( |{ bottle_number->action( ) } | &&
+                                |{ bottle_number->successor( )->to_string( ) } of beer on the wall.| ) ).
   ENDMETHOD.
 
   METHOD capitalize.
@@ -205,9 +203,31 @@ CLASS bottle_verse IMPLEMENTATION.
     output = |{ first_char CASE = UPPER }{ rest }|.
   ENDMETHOD.
 
+ENDCLASS.
 
+CLASS verse_fake DEFINITION.
+  PUBLIC SECTION.
+    INTERFACES verse_template.
+
+    CLASS-METHODS lyrics
+      IMPORTING
+        number        TYPE i
+      RETURNING
+        VALUE(lyrcis) TYPE stringtab.
+ENDCLASS.
+
+CLASS verse_fake IMPLEMENTATION.
+
+  METHOD lyrics.
+    lyrcis = VALUE #( ( |This verse { number }.| ) ).
+  ENDMETHOD.
+
+  METHOD verse_template~lyrics.
+
+  ENDMETHOD.
 
 ENDCLASS.
+
 
 
 CLASS countdown_song DEFINITION FINAL.
@@ -242,7 +262,7 @@ CLASS countdown_song DEFINITION FINAL.
         VALUE(output) TYPE string.
 
   PRIVATE SECTION.
-    DATA verse_template TYPE REF TO object.
+    DATA verse_template TYPE REF TO verse_template.
 
 ENDCLASS.
 
@@ -267,7 +287,8 @@ CLASS countdown_song IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    verse = bottle_verse=>lyrics( number ).
+    verse = CAST bottle_verse( verse_template )->lyrics( number ).
+*    verse = bottle_verse=>lyrics( number ).
   ENDMETHOD.
 
   METHOD capitalize.
@@ -280,22 +301,21 @@ CLASS countdown_song IMPLEMENTATION.
 
 ENDCLASS.
 
-
-CLASS ltc_99_bottles DEFINITION FINAL FOR TESTING
+CLASS ltc_countdown_song DEFINITION FINAL FOR TESTING
   DURATION SHORT
   RISK LEVEL HARMLESS.
 
   PRIVATE SECTION.
-    METHODS a_couple_verses FOR TESTING.
-    METHODS a_few_verses    FOR TESTING.
-    METHODS the_whole_song  FOR TESTING.
+    METHODS verses         FOR TESTING.
+    METHODS the_whole_song FOR TESTING.
+
 
 ENDCLASS.
 
 
-CLASS ltc_99_bottles IMPLEMENTATION.
+CLASS ltc_countdown_song IMPLEMENTATION.
 
-  METHOD a_couple_verses.
+  METHOD verses.
     cl_abap_unit_assert=>assert_equals(
         exp = VALUE stringtab( ( |99 bottles of beer on the wall, 99 bottles of beer.| )
                                ( |Take one down and pass it around, 98 bottles of beer on the wall.| )
@@ -303,18 +323,6 @@ CLASS ltc_99_bottles IMPLEMENTATION.
                                ( |Take one down and pass it around, 97 bottles of beer on the wall.| ) )
         act = NEW countdown_song( )->verses( start_verse = 99
                                              end_verse   = 98 ) ).
-  ENDMETHOD.
-
-  METHOD a_few_verses.
-    cl_abap_unit_assert=>assert_equals(
-       exp = VALUE stringtab( ( |2 bottles of beer on the wall, 2 bottles of beer.| )
-                              ( |Take one down and pass it around, 1 bottle of beer on the wall.| )
-                              ( |1 bottle of beer on the wall, 1 bottle of beer.| )
-                              ( |Take it down and pass it around, no more bottles of beer on the wall.| )
-                              ( |No more bottles of beer on the wall, no more bottles of beer.| )
-                              ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
-       act = NEW countdown_song( )->verses( start_verse = 2
-                                            end_verse   = 0 ) ).
   ENDMETHOD.
 
   METHOD the_whole_song.
