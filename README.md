@@ -27,7 +27,7 @@ Das Kapitel schliesst mit dem Ergebnis, dass die letzte Variante genannt "Shamel
 dass es wahrscheinlich ist, dass sie nicht gut geeignet ist Änderungen an den Anforderungen zu erfüllen.
 
 Weitere Dokumente:
-[CMAP Kapitel 1](CMaps/Chapter1.pdf)
+[CMAP: Kapitel 1](CMaps/Chapter1.pdf)
 
 ### Kapitel 2
 
@@ -37,7 +37,7 @@ Hier wird vor allem vermittelt, wie man erste Tests entwickelt und dann immer we
 mittels der Test zu vervollständigen. Dabei wird auch darauf geachtet, gute und sinnvolle Tests zu schreiben.
 
 Weitere Dokumente:
-[CMAP Kapitel 2](CMaps/Chapter2.pdf)
+[CMAP: Kapitel 2](CMaps/Chapter2.pdf)
 
 ### Kapitel 3
 
@@ -51,7 +51,7 @@ erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werde
 Weiterhin wird erklärt wie man verborgene Konzepte im Code findet und benamt bzw. extrahiert.
 
 Weitere Dokumente:
-[CMAP Kapitel 3](CMaps/Chapter3.pdf)
+[CMAP: Kapitel 3](CMaps/Chapter3.pdf)
 
 ### Kapitel 4
 
@@ -64,7 +64,7 @@ Wiederholungen befreit. Die Autoren geben auch Hinweise darauf, dass Refactoring
 zeitweise den Code komplizierter machen kann.
 
 Weitere Dokumente:
-[CMAP Kapitel 4](CMaps/Chapter4.pdf)
+[CMAP: Kapitel 4](CMaps/Chapter4.pdf)
 
 ### Kapitel 5
 
@@ -73,14 +73,14 @@ Im weiteren Verlauf stellt sich heraus, dass die neue Klasse auf Basis von über
 Ausserdem widmet sich der Abschnitt dem Thema Caching und versucht die Erzeugung von zu vielen Objekten in den Griff zu bekommen, mit der Konsequenz einer temporären Verletzung des "Liskov Substitution Principle".
 
 Weitere Dokumente:
-[CMAP Kapitel 5](CMaps/Chapter5.pdf)
+[CMAP: Kapitel 5](CMaps/Chapter5.pdf)
 
 ### Kapitel 6
 
 Dieser Abschnitt widmet sich dem Refactoring mit Ziel, die neue Anforderung zu implementieren. Auf dem Weg dorthin wurden neue Code Smells entdeckt und behoben. Weiterhin wurde die in Kapitel 5 erzeugt Verletzung des "Liskov Substitution Principles" elimniert. Es wurde eine Factory eingeführt, welche die benötigten Objekte zurückgibt und in diesem Zuge wurden auch Reste der primitiven Variablen entfernt und alles auf Objekte umgestellt. Nicht zuletzt kam Polymorphie in Gestalt von Vererbung zum Einsatz.
 
 Weitere Dokumente:
-[CMAP Kapitel 6](CMaps/Chapter6.pdf)
+[CMAP: Kapitel 6](CMaps/Chapter6.pdf)
 
 ### Kapitel 7
 
@@ -90,8 +90,15 @@ Interessant ist das Konzept sich selbst registrierender Klassen. Dort aber ist d
 Das Fazit des Kapitels ist, dass es keine Patentrezept gibt, wie Factories am besten zu verwenden sind und es, wie immer, auf den Anwendungsfall ankommt.
 
 Weitere Dokumente:
-[CMAP Kapitel 7](CMaps/Chapter7.pdf)
+[CMAP: Kapitel 7](CMaps/Chapter7.pdf)
 
 ### Kapitel 8
+
+Hier geht es im ersten Teil um generelle Betrachtungen über die Ästhetik von Code und die Frage, ob Refactoring nur um Code ästhetischer zu machen gerechtfertig ist.
+Danach gibt es eine neue Anforderung vom Kunden, die ein weiteres Refactoring ohnehin notwendig macht. Beim Umsetzen wird untersucht wie Abhängigkeiten, die im Code vorhanden sind aufgelöst oder umgekehrt werden können. Zur Anwendung kommt hier das "Dependency Inversion Principle". Es wird erklärt wie man die aktuelle Implementierung dahingehend ändert, dass das Programm auch mit anderen Liedtexten verwendet werden kann. Ein Kapitel widmet sich exklusiv dem "Law of Demeter".
+
+Weitere Dokumente:
+[CMAP: Kapitel 8](CMaps/Chapter8.pdf)
+[CMAP: Law of Demeter](CMaps/LawOfDemeter.pdf)
 
 ### Kapitel 9
