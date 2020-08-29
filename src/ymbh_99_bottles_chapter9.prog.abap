@@ -453,28 +453,44 @@ CLASS ltc_bottle_verse DEFINITION FINAL FOR TESTING
   RISK LEVEL HARMLESS.
 
   PRIVATE SECTION.
-    METHODS first_verse   FOR TESTING.
-    METHODS another_verse FOR TESTING.
-    METHODS verse_2       FOR TESTING.
-    METHODS verse_1       FOR TESTING.
-    METHODS verse_0       FOR TESTING.
+    METHODS verse_general_rule_upper_bound FOR TESTING.
+    METHODS verse_general_rule_lower_bound FOR TESTING.
+    METHODS verse_7                        FOR TESTING.
+    METHODS verse_6                        FOR TESTING.
+    METHODS verse_2                        FOR TESTING.
+    METHODS verse_1                        FOR TESTING.
+    METHODS verse_0                        FOR TESTING.
 ENDCLASS.
 
 
 CLASS ltc_bottle_verse IMPLEMENTATION.
 
-  METHOD first_verse.
+  METHOD verse_general_rule_upper_bound.
     cl_abap_unit_assert=>assert_equals(
         exp = VALUE stringtab( ( |99 bottles of beer on the wall, 99 bottles of beer.|  )
                                ( |Take one down and pass it around, 98 bottles of beer on the wall.| ) )
         act = bottle_verse=>lyrics( 99 ) ).
   ENDMETHOD.
 
-  METHOD another_verse.
+  METHOD verse_general_rule_lower_bound.
     cl_abap_unit_assert=>assert_equals(
            exp = VALUE stringtab( ( |3 bottles of beer on the wall, 3 bottles of beer.| )
                                   ( |Take one down and pass it around, 2 bottles of beer on the wall.| ) )
            act = bottle_verse=>lyrics( 3 ) ).
+  ENDMETHOD.
+
+  METHOD verse_7.
+    cl_abap_unit_assert=>assert_equals(
+               exp = VALUE stringtab( ( |7 bottles of beer on the wall, 7 bottles of beer.| )
+                                      ( |Take one down and pass it around, 1 six-pack of beer on the wall.| ) )
+               act = bottle_verse=>lyrics( 7 ) ).
+  ENDMETHOD.
+
+  METHOD verse_6.
+    cl_abap_unit_assert=>assert_equals(
+               exp = VALUE stringtab( ( |1 six-pack of beer on the wall, 1 six-pack of beer.| )
+                                      ( |Take one down and pass it around, 5 bottles of beer on the wall.| ) )
+               act = bottle_verse=>lyrics( 6 ) ).
   ENDMETHOD.
 
   METHOD verse_2.
@@ -497,4 +513,5 @@ CLASS ltc_bottle_verse IMPLEMENTATION.
                                    ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
             act = bottle_verse=>lyrics( 0 ) ).
   ENDMETHOD.
+
 ENDCLASS.
