@@ -210,7 +210,7 @@ CLASS bottle_verse IMPLEMENTATION.
 ENDCLASS.
 
 
-CLASS lcl_99_bottles DEFINITION FINAL.
+CLASS countdown_song DEFINITION FINAL.
 
   PUBLIC SECTION.
 
@@ -246,7 +246,7 @@ CLASS lcl_99_bottles DEFINITION FINAL.
 
 ENDCLASS.
 
-CLASS lcl_99_bottles IMPLEMENTATION.
+CLASS countdown_song IMPLEMENTATION.
 
   METHOD constructor.
     me->verse_template = COND #( WHEN verse_template IS BOUND THEN verse_template
@@ -301,7 +301,7 @@ CLASS ltc_99_bottles IMPLEMENTATION.
                                ( |Take one down and pass it around, 98 bottles of beer on the wall.| )
                                ( |98 bottles of beer on the wall, 98 bottles of beer.| )
                                ( |Take one down and pass it around, 97 bottles of beer on the wall.| ) )
-        act = NEW lcl_99_bottles( )->verses( start_verse = 99
+        act = NEW countdown_song( )->verses( start_verse = 99
                                              end_verse   = 98 ) ).
   ENDMETHOD.
 
@@ -313,7 +313,7 @@ CLASS ltc_99_bottles IMPLEMENTATION.
                               ( |Take it down and pass it around, no more bottles of beer on the wall.| )
                               ( |No more bottles of beer on the wall, no more bottles of beer.| )
                               ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
-       act = NEW lcl_99_bottles( )->verses( start_verse = 2
+       act = NEW countdown_song( )->verses( start_verse = 2
                                             end_verse   = 0 ) ).
   ENDMETHOD.
 
@@ -419,7 +419,7 @@ CLASS ltc_99_bottles IMPLEMENTATION.
                               ( |2 bottles of beer on the wall, 2 bottles of beer.| )   ( |Take one down and pass it around, 1 bottle of beer on the wall.| )
                               ( |1 bottle of beer on the wall, 1 bottle of beer.| )     ( |Take it down and pass it around, no more bottles of beer on the wall.| )
                               ( |No more bottles of beer on the wall, no more bottles of beer.| ) ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
-       act = NEW lcl_99_bottles( )->song( ) ).
+       act = NEW countdown_song( )->song( ) ).
   ENDMETHOD.
 
 ENDCLASS.
