@@ -158,12 +158,18 @@ CLASS bottle_verse DEFINITION.
   PUBLIC SECTION.
     INTERFACES verse_template.
 
+    CLASS-METHODS lyrics
+      IMPORTING
+        number               TYPE i
+      RETURNING
+        VALUE(bottle_number) TYPE stringtab.
+
     METHODS constructor
       IMPORTING
-        number TYPE i.
+        bottle_number TYPE REF TO lcl_bottle_number.
 
   PRIVATE SECTION.
-    DATA number TYPE i.
+    DATA bottle_number TYPE REF TO lcl_bottle_number.
 
     METHODS capitalize
       IMPORTING
@@ -174,12 +180,16 @@ ENDCLASS.
 
 CLASS bottle_verse IMPLEMENTATION.
 
+  METHOD lyrics.
+    bottle_number = NEW bottle_verse( lcl_bottle_number=>for( number ) )->verse_template~lyrics( ).
+  ENDMETHOD.
+
   METHOD constructor.
-    me->number = number.
+    me->bottle_number = bottle_number.
   ENDMETHOD.
 
   METHOD verse_template~lyrics.
-    DATA(bottle_number) = lcl_bottle_number=>for( me->number ).
+*    DATA(bottle_number) = lcl_bottle_number=>for( me->number ).
 
     lyrics = VALUE stringtab( ( |{ capitalize( bottle_number->to_string( ) ) } of beer on the wall, | &&
                                |{ bottle_number->to_string( ) } of beer.| )
@@ -195,12 +205,18 @@ CLASS bottle_verse IMPLEMENTATION.
     output = |{ first_char CASE = UPPER }{ rest }|.
   ENDMETHOD.
 
+
+
 ENDCLASS.
 
 
 CLASS lcl_99_bottles DEFINITION FINAL.
 
   PUBLIC SECTION.
+
+    METHODS constructor
+      IMPORTING
+        verse_template TYPE REF TO verse_template OPTIONAL.
 
     METHODS song
       RETURNING
@@ -226,11 +242,16 @@ CLASS lcl_99_bottles DEFINITION FINAL.
         VALUE(output) TYPE string.
 
   PRIVATE SECTION.
-    DATA verse_template TYPE REF TO verse_template.
+    DATA verse_template TYPE REF TO object.
 
 ENDCLASS.
 
 CLASS lcl_99_bottles IMPLEMENTATION.
+
+  METHOD constructor.
+    me->verse_template = COND #( WHEN verse_template IS BOUND THEN verse_template
+                                 ELSE NEW bottle_verse( lcl_bottle_number=>for( 99 ) ) ).
+  ENDMETHOD.
 
   METHOD song.
     song = verses( start_verse = 99
@@ -246,7 +267,7 @@ CLASS lcl_99_bottles IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD verse.
-    verse = NEW bottle_verse( number )->verse_template~lyrics( ).
+    verse = bottle_verse=>lyrics( number ).
   ENDMETHOD.
 
   METHOD capitalize.
@@ -265,11 +286,6 @@ CLASS ltc_99_bottles DEFINITION FINAL FOR TESTING
   RISK LEVEL HARMLESS.
 
   PRIVATE SECTION.
-    METHODS the_first_verse FOR TESTING.
-    METHODS another_verse   FOR TESTING.
-    METHODS verse_2         FOR TESTING.
-    METHODS verse_1         FOR TESTING.
-    METHODS verse_0         FOR TESTING.
     METHODS a_couple_verses FOR TESTING.
     METHODS a_few_verses    FOR TESTING.
     METHODS the_whole_song  FOR TESTING.
@@ -278,41 +294,6 @@ ENDCLASS.
 
 
 CLASS ltc_99_bottles IMPLEMENTATION.
-
-  METHOD the_first_verse.
-    cl_abap_unit_assert=>assert_equals(
-        exp = VALUE stringtab( ( |99 bottles of beer on the wall, 99 bottles of beer.| )
-                               ( |Take one down and pass it around, 98 bottles of beer on the wall.| ) )
-        act = NEW lcl_99_bottles( )->verse( 99 ) ).
-  ENDMETHOD.
-
-  METHOD another_verse.
-    cl_abap_unit_assert=>assert_equals(
-           exp = VALUE stringtab( ( |3 bottles of beer on the wall, 3 bottles of beer.| )
-                                  ( |Take one down and pass it around, 2 bottles of beer on the wall.| ) )
-           act = NEW lcl_99_bottles( )->verse( 3 ) ).
-  ENDMETHOD.
-
-  METHOD verse_2.
-    cl_abap_unit_assert=>assert_equals(
-               exp = VALUE stringtab( ( |2 bottles of beer on the wall, 2 bottles of beer.| )
-                                      ( |Take one down and pass it around, 1 bottle of beer on the wall.| ) )
-               act = NEW lcl_99_bottles( )->verse( 2 ) ).
-  ENDMETHOD.
-
-  METHOD verse_1.
-    cl_abap_unit_assert=>assert_equals(
-            exp = VALUE stringtab( ( |1 bottle of beer on the wall, 1 bottle of beer.| )
-                                   ( |Take it down and pass it around, no more bottles of beer on the wall.| ) )
-            act = NEW lcl_99_bottles( )->verse( 1 ) ).
-  ENDMETHOD.
-
-  METHOD verse_0.
-    cl_abap_unit_assert=>assert_equals(
-            exp = VALUE stringtab( ( |No more bottles of beer on the wall, no more bottles of beer.| )
-                                   ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
-            act = NEW lcl_99_bottles( )->verse( 0 ) ).
-  ENDMETHOD.
 
   METHOD a_couple_verses.
     cl_abap_unit_assert=>assert_equals(
@@ -463,8 +444,57 @@ CLASS ltc_bottle_number IMPLEMENTATION.
     cl_abap_unit_assert=>assert_true( act = xsdbool( lcl_bottle_number=>for( 7 ) IS INSTANCE OF lcl_bottle_number ) ).
     cl_abap_unit_assert=>assert_true( act = xsdbool( lcl_bottle_number=>for( 43 ) IS INSTANCE OF lcl_bottle_number ) ).
 
-
-
   ENDMETHOD.
 
+ENDCLASS.
+
+CLASS ltc_bottle_verse DEFINITION FINAL FOR TESTING
+  DURATION SHORT
+  RISK LEVEL HARMLESS.
+
+  PRIVATE SECTION.
+    METHODS first_verse   FOR TESTING.
+    METHODS another_verse FOR TESTING.
+    METHODS verse_2       FOR TESTING.
+    METHODS verse_1       FOR TESTING.
+    METHODS verse_0       FOR TESTING.
+ENDCLASS.
+
+
+CLASS ltc_bottle_verse IMPLEMENTATION.
+
+  METHOD first_verse.
+    cl_abap_unit_assert=>assert_equals(
+        exp = VALUE stringtab( ( |99 bottles of beer on the wall, 99 bottles of beer.|  )
+                               ( |Take one down and pass it around, 98 bottles of beer on the wall.| ) )
+        act = bottle_verse=>lyrics( 99 ) ).
+  ENDMETHOD.
+
+  METHOD another_verse.
+    cl_abap_unit_assert=>assert_equals(
+           exp = VALUE stringtab( ( |3 bottles of beer on the wall, 3 bottles of beer.| )
+                                  ( |Take one down and pass it around, 2 bottles of beer on the wall.| ) )
+           act = bottle_verse=>lyrics( 3 ) ).
+  ENDMETHOD.
+
+  METHOD verse_2.
+    cl_abap_unit_assert=>assert_equals(
+               exp = VALUE stringtab( ( |2 bottles of beer on the wall, 2 bottles of beer.| )
+                                      ( |Take one down and pass it around, 1 bottle of beer on the wall.| ) )
+               act = bottle_verse=>lyrics( 2 ) ).
+  ENDMETHOD.
+
+  METHOD verse_1.
+    cl_abap_unit_assert=>assert_equals(
+            exp = VALUE stringtab( ( |1 bottle of beer on the wall, 1 bottle of beer.| )
+                                   ( |Take it down and pass it around, no more bottles of beer on the wall.| ) )
+            act = bottle_verse=>lyrics( 1 ) ).
+  ENDMETHOD.
+
+  METHOD verse_0.
+    cl_abap_unit_assert=>assert_equals(
+            exp = VALUE stringtab( ( |No more bottles of beer on the wall, no more bottles of beer.| )
+                                   ( |Go to the store and buy some more, 99 bottles of beer on the wall.| ) )
+            act = bottle_verse=>lyrics( 0 ) ).
+  ENDMETHOD.
 ENDCLASS.
