@@ -26,7 +26,7 @@ Schlussendlich wird auch danach geschaut, welcher Code am verständlichsten ist 
 Das Kapitel schliesst mit dem Ergebnis, dass die letzte Variante genannt "Shameless Green" die Beste ist, wohlwissend,
 dass es wahrscheinlich ist, dass sie nicht gut geeignet ist Änderungen an den Anforderungen zu erfüllen.
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 1](CMaps/Chapter1.pdf)
 
 ### Kapitel 2
@@ -36,7 +36,7 @@ zu erklären.
 Hier wird vor allem vermittelt, wie man erste Tests entwickelt und dann immer weitere Tests erzeugt um am Ende den gesamten Code
 mittels der Test zu vervollständigen. Dabei wird auch darauf geachtet, gute und sinnvolle Tests zu schreiben.
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 2](CMaps/Chapter2.pdf)
 
 ### Kapitel 3
@@ -50,7 +50,7 @@ Status gebracht werden kann. Es wird begonnen auffällige Dopplungen im Code zu 
 erläutern, wie z.B.: systematisches graduelles Ändern ohne die Tests rot werden zu lassen, Flocking Rules um ähnliche Stellen gleich zu machen und damit die Doppelung zu entfernen. Hilfreich dabei ist ein ["Open/Close Flowchart"](charts/OpenCloseFlowchart.png).
 Weiterhin wird erklärt wie man verborgene Konzepte im Code findet und benamt bzw. extrahiert.
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 3](CMaps/Chapter3.pdf)
 
 ### Kapitel 4
@@ -63,7 +63,7 @@ Am Ende des Kapitels ist der Code von "Shameless Green" deutlich verändert, mei
 Wiederholungen befreit. Die Autoren geben auch Hinweise darauf, dass Refactoring auch in die falsche Richtung führen kann oder
 zeitweise den Code komplizierter machen kann.
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 4](CMaps/Chapter4.pdf)
 
 ### Kapitel 5
@@ -72,14 +72,14 @@ Kapitel 5 widmet sich weiteren Refactoring Schritten in Richtung der Implementie
 Im weiteren Verlauf stellt sich heraus, dass die neue Klasse auf Basis von übergebenen "primitiven" Variablen arbeitet. Dies wird dahingehend geändert, dass auf Messaging umgestellt wird, was heisst, dass der Sender nicht mehr wissen muss, wie die Daten in der Empfängerklasse aufgebaut sind.
 Ausserdem widmet sich der Abschnitt dem Thema Caching und versucht die Erzeugung von zu vielen Objekten in den Griff zu bekommen, mit der Konsequenz einer temporären Verletzung des "Liskov Substitution Principle".
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 5](CMaps/Chapter5.pdf)
 
 ### Kapitel 6
 
 Dieser Abschnitt widmet sich dem Refactoring mit Ziel, die neue Anforderung zu implementieren. Auf dem Weg dorthin wurden neue Code Smells entdeckt und behoben. Weiterhin wurde die in Kapitel 5 erzeugt Verletzung des "Liskov Substitution Principles" elimniert. Es wurde eine Factory eingeführt, welche die benötigten Objekte zurückgibt und in diesem Zuge wurden auch Reste der primitiven Variablen entfernt und alles auf Objekte umgestellt. Nicht zuletzt kam Polymorphie in Gestalt von Vererbung zum Einsatz.
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 6](CMaps/Chapter6.pdf)
 
 ### Kapitel 7
@@ -89,7 +89,7 @@ Viele Varianten der Verwendung von Factories resultieren in Code der die Intenti
 Interessant ist das Konzept sich selbst registrierender Klassen. Dort aber ist die Erklärung etwas weniger verständlich und der Beispielcode meiner Meinung nach etwas zu abstrakt, da für mich nicht klar hervorgeht wann denn die Registrierung der einzelnen Subclasses erfolgt.
 Das Fazit des Kapitels ist, dass es keine Patentrezept gibt, wie Factories am besten zu verwenden sind und es, wie immer, auf den Anwendungsfall ankommt.
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 7](CMaps/Chapter7.pdf)
 
 ### Kapitel 8
@@ -97,7 +97,7 @@ Weitere Dokumente:
 Hier geht es im ersten Teil um generelle Betrachtungen über die Ästhetik von Code und die Frage, ob Refactoring nur um Code ästhetischer zu machen gerechtfertig ist.
 Danach gibt es eine neue Anforderung vom Kunden, die ein weiteres Refactoring ohnehin notwendig macht. Beim Umsetzen wird untersucht wie Abhängigkeiten, die im Code vorhanden sind aufgelöst oder umgekehrt werden können. Zur Anwendung kommt hier das "Dependency Inversion Principle". Es wird erklärt wie man die aktuelle Implementierung dahingehend ändert, dass das Programm auch mit anderen Liedtexten verwendet werden kann. Ein Kapitel widmet sich exklusiv dem "Law of Demeter".
 
-Weitere Dokumente:
+Weitere Dokumente:  
 [CMAP: Kapitel 8](CMaps/Chapter8.pdf)  
 [CMAP: Law of Demeter](CMaps/LawOfDemeter.pdf)
 
