@@ -98,7 +98,7 @@ Hier geht es im ersten Teil um generelle Betrachtungen über die Ästhetik von C
 Danach gibt es eine neue Anforderung vom Kunden, die ein weiteres Refactoring ohnehin notwendig macht. Beim Umsetzen wird untersucht wie Abhängigkeiten, die im Code vorhanden sind aufgelöst oder umgekehrt werden können. Zur Anwendung kommt hier das "Dependency Inversion Principle". Es wird erklärt wie man die aktuelle Implementierung dahingehend ändert, dass das Programm auch mit anderen Liedtexten verwendet werden kann. Ein Kapitel widmet sich exklusiv dem "Law of Demeter".
 
 Weitere Dokumente:
-[CMAP: Kapitel 8](CMaps/Chapter8.pdf)
+[CMAP: Kapitel 8](CMaps/Chapter8.pdf)  
 [CMAP: Law of Demeter](CMaps/LawOfDemeter.pdf)
 
 ### Kapitel 9
